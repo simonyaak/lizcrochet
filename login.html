@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — LC&C</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF6F0;
+      --charcoal: #2B2826;
+      --terracotta: #C0392B;
+      --blush: #F2C6C2;
+      --line: rgba(43, 40, 38, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--charcoal);
+      font-family: 'Work Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative background shapes mimicking crochet stitches */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed var(--terracotta);
+      opacity: 0.15;
+      z-index: 0;
+      animation: rotate 60s linear infinite;
+    }
+
+    .c1 { width: 400px; height: 400px; top: -100px; right: -100px; }
+    .c2 { width: 300px; height: 300px; bottom: -50px; left: -100px; }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .login-container {
+      background: rgba(250, 246, 240, 0.95);
+      backdrop-filter: blur(12px);
+      width: 100%;
+      max-width: 420px;
+      padding: 3.5rem 2.5rem;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 50px rgba(43, 40, 38, 0.08);
+      z-index: 1;
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header-logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      color: var(--charcoal);
+      text-decoration: none;
+      text-align: center;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .header-logo span {
+      color: var(--terracotta);
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(43, 40, 38, 0.6);
+      margin-bottom: 2.5rem;
+      font-weight: 500;
+    }
+
+    .form-group {
+      margin-bottom: 1.6rem;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 18px;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+      background: white;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--charcoal);
+      color: var(--cream);
+      border: none;
+      border-radius: 100px;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background: var(--terracotta);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(192, 57, 43, 0.15);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    /* Error Message Alert */
+    .error-alert {
+      background: #FDEDEC;
+      border: 1px solid rgba(231, 76, 60, 0.2);
+      color: #C0392B;
+      padding: 12px 18px;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+      display: none;
+      text-align: center;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.88rem;
+      color: rgba(43, 40, 38, 0.5);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: var(--terracotta);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-circle c1"></div>
+  <div class="bg-circle c2"></div>
+
+  <div class="login-container">
+    <a href="/" class="header-logo">LC<span>&</span>C</a>
+    <div class="subtitle">Admin Dashboard</div>
+
+    <div id="errorMsg" class="error-alert">Invalid credentials, please try again.</div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="e.g. admin" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-submit" id="submitBtn">Sign In</button>
+    </form>
+
+    <a href="/" class="back-link">← Return to Website</a>
+  </div>
+
+  <script>
+    // Check if user is already logged in
+    fetch('/api/status')
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          window.location.href = '/admin.html';
+        }
+      });
+
+    const form = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // Update UI state
+      submitBtn.innerText = 'Verifying...';
+      submitBtn.disabled = true;
+      errorMsg.style.display = 'none';
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          window.location.href = '/admin.html';
+        } else {
+          showError(data.error || 'Login failed. Please check your username and password.');
+        }
+      } catch (err) {
+        showError('Network error. Unable to connect to server.');
+        console.error(err);
+      } finally {
+        submitBtn.innerText = 'Sign In';
+        submitBtn.disabled = false;
+      }
+    });
+
+    function showError(text) {
+      errorMsg.innerText = text;
+      errorMsg.style.display = 'block';
+      // Trigger CSS animation reflow
+      errorMsg.style.animation = 'none';
+      errorMsg.offsetHeight; // trigger reflow
+      errorMsg.style.animation = null;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LC&C — Liz Crochets & Crafts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF6F0;
+      --charcoal: #2B2826;
+      --terracotta: #C0392B;
+      --sage: #9CAF88;
+      --blush: #F2C6C2;
+      --gold: #C9A876;
+      --line: rgba(43, 40, 38, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--charcoal);
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    /* ===== Stitch divider — signature element ===== */
+    .stitch-divider {
+      width: 100%;
+      height: 28px;
+      overflow: hidden;
+    }
+
+    .stitch-divider svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ===== Header ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 6vw;
+      background: rgba(250, 246, 240, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      transition: padding 0.3s ease;
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--terracotta);
+    }
+
+    nav {
+      display: flex;
+      gap: 2.4rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--charcoal);
+      text-decoration: none;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.25s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--terracotta);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: var(--terracotta);
+      color: var(--cream) !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .nav-cta::after {
+      display: none;
+    }
+
+    .nav-cta:hover {
+      background: #a8331f;
+    }
+
+    .nav-admin-login {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(43, 40, 38, 0.3);
+      color: var(--charcoal) !important;
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.82rem !important;
+      text-transform: none !important;
+      letter-spacing: normal !important;
+      font-weight: 500 !important;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .nav-admin-login::after {
+      display: none !important;
+    }
+
+    .nav-admin-login:hover {
+      background: var(--charcoal);
+      color: var(--cream) !important;
+      border-color: var(--charcoal);
+    }
+
+    .nav-admin-login svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+      padding: 0 6vw;
+      gap: 4rem;
+      position: relative;
+    }
+
+    .hero-text {
+      padding-top: 80px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background: var(--terracotta);
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      line-height: 1.02;
+      font-weight: 600;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--terracotta);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 480px;
+      color: rgba(43, 40, 38, 0.7);
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 16px 32px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--charcoal);
+      color: var(--cream);
+    }
+
+    .btn-primary:hover {
+      background: var(--terracotta);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--charcoal);
+      color: var(--charcoal);
+    }
+
+    .btn-secondary:hover {
+      background: var(--charcoal);
+      color: var(--cream);
+    }
+
+    .hero-visual {
+      position: relative;
+      height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-img-main {
+      width: 78%;
+      border-radius: 24px;
+      object-fit: cover;
+      height: 80%;
+      box-shadow: 0 30px 60px -20px rgba(43, 40, 38, 0.35);
+      animation: floatIn 1.2s ease backwards;
+    }
+
+    .hero-img-float {
+      position: absolute;
+      width: 38%;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px -15px rgba(43, 40, 38, 0.4);
+      bottom: 6%;
+      left: -2%;
+      border: 6px solid var(--cream);
+      animation: floatIn 1.2s ease 0.3s backwards;
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* ===== Section base ===== */
+    section {
+      padding: 7rem 6vw;
+      position: relative;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 4rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      line-height: 1.1;
+    }
+
+    .section-head p {
+      margin-top: 1.2rem;
+      color: rgba(43, 40, 38, 0.65);
+      font-size: 1.05rem;
+      max-width: 540px;
+    }
+
+    /* ===== Story / About ===== */
+    .about {
+      background: var(--charcoal);
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-watermark {
+      position: absolute;
+      top: 50%;
+      right: -10%;
+      transform: translateY(-50%);
+      width: 700px;
+      max-width: 80vw;
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .about .section-eyebrow {
+      color: var(--blush);
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-grid img {
+      width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      height: 560px;
+    }
+
+    .about-text p {
+      color: rgba(250, 246, 240, 0.7);
+      margin-bottom: 1.4rem;
+      font-size: 1.05rem;
+    }
+
+    .mission-vision {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.4rem;
+    }
+
+    .mv-card {
+      border-top: 2px solid var(--terracotta);
+      padding-top: 1.2rem;
+    }
+
+    .mv-card h3 {
+      font-size: 1.2rem;
+      color: var(--blush);
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+    }
+
+    .mv-card p {
+      font-size: 0.95rem;
+      color: rgba(250, 246, 240, 0.6);
+    }
+
+    /* ===== Shop / Collection ===== */
+    .collection {
+      background: var(--cream);
+    }
+
+    /* Filter tabs */
+    .shop-filters {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.8rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: rgba(43, 40, 38, 0.6);
+      padding: 9px 20px;
+      border-radius: 100px;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--charcoal);
+      color: var(--charcoal);
+    }
+
+    .filter-btn.active {
+      background: var(--charcoal);
+      border-color: var(--charcoal);
+      color: var(--cream);
+    }
+
+    /* Product grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.6rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px -12px rgba(43, 40, 38, 0.18);
+    }
+
+    .product-card-img {
+      position: relative;
+      overflow: hidden;
+      height: 280px;
+      flex-shrink: 0;
+    }
+
+    .product-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.7s ease;
+      display: block;
+    }
+
+    .product-card:hover .product-card-img img {
+      transform: scale(1.07);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(250, 246, 240, 0.95);
+      color: var(--charcoal);
+      padding: 5px 13px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    .product-card-body {
+      padding: 1.4rem 1.4rem 1.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .product-card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.25;
+    }
+
+    .product-card-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      font-family: 'Fraunces', serif;
+      margin-top: auto;
+      padding-top: 0.8rem;
+    }
+
+    .product-card-price span {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: rgba(43,40,38,0.5);
+      font-family: 'Work Sans', sans-serif;
+      margin-left: 4px;
+    }
+
+    .product-order-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--charcoal);
+      color: var(--cream);
+      border: none;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: 0.8rem;
+    }
+
+    .product-order-btn:hover {
+      background: var(--terracotta);
+      transform: none;
+    }
+
+    .product-order-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Hidden product card (for filter) */
+    .product-card.hidden {
+      display: none;
+    }
+
+    /* ===== Services ===== */
+    .services {
+      background: var(--cream);
+    }
+
+    .services-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 100px 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 3rem 0;
+      border-top: 1px solid var(--line);
+      transition: padding-left 0.4s ease;
+    }
+
+    .services-list .service-row:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .service-row:hover {
+      padding-left: 1.5rem;
+    }
+
+    .service-num {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem;
+      color: var(--terracotta);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .service-row h3 {
+      font-size: 1.7rem;
+      font-weight: 500;
+    }
+
+    .service-row p {
+      color: rgba(43, 40, 38, 0.62);
+      font-size: 1rem;
+    }
+
+    /* ===== Process strip ===== */
+    .process {
+      background: var(--sage);
+      color: var(--charcoal);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .process img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -15px rgba(43, 40, 38, 0.25);
+    }
+
+    .process-images {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 1rem;
+      height: 100%;
+      min-height: 500px;
+    }
+
+    .process-img-top,
+    .process-img-bottom {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px -15px rgba(43, 40, 38, 0.25);
+    }
+
+    .process .section-eyebrow {
+      color: var(--terracotta);
+    }
+
+    .process .section-head p {
+      color: rgba(43, 40, 38, 0.7);
+    }
+
+    .process-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .process-list li {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 1.02rem;
+    }
+
+    .process-list li::before {
+      content: '✦';
+      color: var(--terracotta);
+      flex-shrink: 0;
+      margin-top: 0.15em;
+    }
+
+    /* ===== Testimonial / community feature ===== */
+    .feature {
+      background: var(--cream);
+      text-align: center;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
+    .feature-img {
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -15px rgba(43, 40, 38, 0.25);
+    }
+
+    .feature-img img {
+      width: 100%;
+      display: block;
+    }
+
+    .feature blockquote {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-style: italic;
+      font-weight: 400;
+      max-width: 720px;
+      margin: 0 auto 1.2rem;
+      line-height: 1.4;
+    }
+
+    .feature cite {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--terracotta);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    /* ===== CTA / Contact ===== */
+    .cta {
+      background: var(--charcoal);
+      color: var(--cream);
+      text-align: center;
+      padding: 7rem 6vw;
+    }
+
+    .cta .section-eyebrow {
+      color: var(--blush);
+    }
+
+    .cta h2 {
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      margin: 1rem 0 1.6rem;
+    }
+
+    .cta p {
+      color: rgba(250, 246, 240, 0.65);
+      max-width: 540px;
+      margin: 0 auto 2.6rem;
+      font-size: 1.05rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta .btn-primary {
+      background: var(--terracotta);
+    }
+
+    .cta .btn-primary:hover {
+      background: var(--blush);
+      color: var(--charcoal);
+    }
+
+    .cta .btn-secondary {
+      border-color: rgba(250, 246, 240, 0.4);
+      color: var(--cream);
+    }
+
+    .cta .btn-secondary:hover {
+      background: var(--cream);
+      color: var(--charcoal);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--charcoal);
+      color: rgba(250, 246, 240, 0.5);
+      text-align: center;
+      padding: 2.4rem 6vw;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(250, 246, 240, 0.1);
+    }
+
+    footer .logo {
+      color: var(--cream);
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    footer .logo span {
+      color: var(--terracotta);
+    }
+
+    /* ===== Scroll reveal ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Lookbook Strip ===== */
+    .lookbook {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .lookbook-strip {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      height: 520px;
+      gap: 0;
+    }
+
+    .lookbook-item {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .lookbook-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.8s ease;
+      display: block;
+    }
+
+    .lookbook-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .lookbook-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(43,40,38,0.75) 0%, transparent 100%);
+      color: var(--cream);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+
+    .lookbook-item:hover .lookbook-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .lookbook-overlay span {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+      color: var(--blush);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .lookbook-overlay p {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+        gap: 2.5rem;
+      }
+
+      .hero-visual {
+        height: 60vh;
+        order: -1;
+      }
+
+      .hero-text {
+        padding-top: 0;
+      }
+
+      .about-grid,
+      .process-grid,
+      .mission-vision {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .about-grid img {
+        height: 380px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 220px;
+      }
+
+      .g1 {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+      }
+
+      .g2 {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+      }
+
+      .g3 {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+      }
+
+      .g4 {
+        grid-column: 1 / 3;
+        grid-row: 3 / 4;
+      }
+
+      .service-row {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+        padding: 2rem 0;
+      }
+
+      section {
+        padding: 4.5rem 6vw;
+      }
+
+      .lookbook-strip {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .lookbook-item {
+        height: 300px;
+      }
+
+      .lookbook-overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .process-images {
+        min-height: 350px;
+        grid-template-rows: 1fr 1fr;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .shop-filters {
+        margin-bottom: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="#" class="logo">LC<span>&</span>C</a>
+    <nav>
+      <a href="#story">Our Story</a>
+      <a href="#collection">Collection</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="/login.html" class="nav-admin-login" id="admin-login-btn" onclick="handleAdminClick(event)" style="display: none;">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+        Admin
+      </a>
+      <a href="https://wa.me/0926609241?text=Hi!%20I%20am%20interested%20in%20booking%20a%20custom%20crochet%20commission." target="_blank" rel="noopener" class="nav-cta wa-contact-btn">Book Now</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow" id="dynamic-hero-eyebrow">Hoop Loop Magic</div>
+      <h1 id="dynamic-hero-title">Crafted by<br><em>hand,</em> made<br>to last.</h1>
+      <p id="dynamic-hero-description">Liz Crochets & Crafts creates one-of-a-kind handmade bags, accessories, and wearable art — every stitch shaped
+        by hand, every piece a small act of patience.</p>
+      <div class="hero-buttons">
+        <a href="#collection" class="btn-primary">View Collection</a>
+        <a href="https://wa.me/0926609241?text=Hi!%20I%20am%20interested%20in%20booking%20a%20custom%20crochet%20commission." target="_blank" rel="noopener" class="btn-secondary wa-contact-btn">Commission a Piece</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img class="hero-img-main" src="images/img1.jpg" alt="Model wearing handmade granny square crochet dress">
+      <img class="hero-img-float" src="images/img4.jpg" alt="Handmade green crochet fan bag">
+    </div>
+  </section>
+
+  <div class="stitch-divider">
+    <svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0 14 Q 15 0, 30 14 T 60 14 T 90 14 T 120 14 T 150 14 T 180 14 T 210 14 T 240 14 T 270 14 T 300 14 T 330 14 T 360 14 T 390 14 T 420 14 T 450 14 T 480 14 T 510 14 T 540 14 T 570 14 T 600 14 T 630 14 T 660 14 T 690 14 T 720 14 T 750 14 T 780 14 T 810 14 T 840 14 T 870 14 T 900 14 T 930 14 T 960 14 T 990 14 T 1020 14 T 1050 14 T 1080 14 T 1110 14 T 1140 14 T 1170 14 T 1200 14"
+        stroke="#C0392B" stroke-width="2" fill="none" opacity="0.4" />
+    </svg>
+  </div>
+
+  <!-- STORY -->
+  <section class="about" id="story">
+    <img src="images/logo-watermark.jpg" class="about-watermark" style="mix-blend-mode: lighten;" alt="">
+    <div class="about-grid">
+      <img class="reveal" src="images/img3.jpg" alt="LC&C artisan model holding colourful yarn balls">
+      <div class="about-text reveal">
+        <div class="section-eyebrow">Our Story</div>
+        <h2 style="margin-bottom: 1.6rem; color: var(--cream);">Every thread tells<br>a story of care</h2>
+        <p>LC&C began with a hook, a ball of yarn, and a belief that handmade things carry something machines can't
+          replicate — warmth, intention, and individuality.</p>
+        <p>Founded in 2022 in Juba, South Sudan, our mission is to empower women artisans through the production and sale
+          of high-quality, handmade crochet and craft products that reflect the rich cultural heritage of South Sudan.</p>
+        <div class="mission-vision">
+          <div class="mv-card">
+            <h3>Mission</h3>
+            <p>To provide high quality, handmade crochet and craft items that bring joy and beauty into the lives of our
+              customers — unique, personalised pieces that celebrate creativity and individuality.</p>
+          </div>
+          <div class="mv-card">
+            <h3>Vision</h3>
+            <p>A world where creativity knows no bounds. We strive to empower women artisans to express themselves
+              through crochet and craft, building a community that supports and uplifts one another.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLECTION / SHOP -->
+  <section class="collection" id="collection">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">The Collection</div>
+      <h2>Pieces with personality</h2>
+      <p>From everyday totes to statement clutches and crochet wearables — each piece is made to order,
+        in colours you choose. Order directly via WhatsApp.</p>
+    </div>
+
+    <!-- Category filters (built dynamically) -->
+    <div class="shop-filters reveal" id="shop-filters">
+      <button class="filter-btn active" data-filter="all" onclick="filterProducts('all', this)">All Pieces</button>
+    </div>
+
+    <!-- Product cards grid -->
+    <div class="product-grid" id="dynamic-gallery">
+      <!-- Loaded dynamically from server -->
+    </div>
+  </section>
+
+  <div class="stitch-divider">
+    <svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0 14 Q 15 28, 30 14 T 60 14 T 90 14 T 120 14 T 150 14 T 180 14 T 210 14 T 240 14 T 270 14 T 300 14 T 330 14 T 360 14 T 390 14 T 420 14 T 450 14 T 480 14 T 510 14 T 540 14 T 570 14 T 600 14 T 630 14 T 660 14 T 690 14 T 720 14 T 750 14 T 780 14 T 810 14 T 840 14 T 870 14 T 900 14 T 930 14 T 960 14 T 990 14 T 1020 14 T 1050 14 T 1080 14 T 1110 14 T 1140 14 T 1170 14 T 1200 14"
+        stroke="#9CAF88" stroke-width="2" fill="none" opacity="0.5" />
+    </svg>
+  </div>
+
+  <!-- LOOKBOOK PHOTO STRIP -->
+  <section class="lookbook">
+    <div class="lookbook-strip">
+      <div class="lookbook-item">
+        <img src="images/img1.jpg" alt="Model in handmade granny square crochet dress with yarn">
+        <div class="lookbook-overlay">
+          <span>Wearable Art</span>
+          <p>Granny Square Crochet Collection</p>
+        </div>
+      </div>
+      <div class="lookbook-item">
+        <img src="images/img3.jpg" alt="LC&C artisan model smiling holding colourful yarn balls">
+        <div class="lookbook-overlay">
+          <span>The Artisan</span>
+          <p>Every colour, chosen by hand</p>
+        </div>
+      </div>
+      <div class="lookbook-item">
+        <img src="images/img5.jpg" alt="Happy customer holding green handmade crochet fan bag">
+        <div class="lookbook-overlay">
+          <span>Real Clients</span>
+          <p>Made for you, loved by you</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">Service Offering</div>
+      <h2>What we make for you</h2>
+      <p>From ready-to-wear pieces to fully custom commissions — and the skills to make your own.</p>
+    </div>
+    <div class="services-list reveal">
+      <div class="service-row">
+        <div class="service-num">01</div>
+        <h3>Handmade Crochet Products</h3>
+        <p>Production and sales of bags, clutches, totes, and accessories — each one hand-crocheted using premium yarn
+          for durability and a luxury finish.</p>
+      </div>
+      <div class="service-row">
+        <div class="service-num">02</div>
+        <h3>Customised Crochet & Gifts</h3>
+        <p>Personalised pieces for weddings, birthdays, and special occasions — including crochet bouquets, named rings,
+          and bespoke colour combinations.</p>
+      </div>
+      <div class="service-row">
+        <div class="service-num">03</div>
+        <h3>Artisan Training & Skills Development</h3>
+        <p>Hands-on workshops that teach the art of crochet — empowering aspiring artisans to build their own creative
+          practice and income.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="process-grid">
+      <div class="reveal">
+        <div class="section-eyebrow">Before & After</div>
+        <h2>From a single loop<br>to a luxury piece</h2>
+        <p>Every LC&C bag starts the same way — a ball of yarn and a hook. What follows is hours of careful, repetitive
+          stitching that turns simple thread into something you'll carry for years.</p>
+        <ul class="process-list">
+          <li>Premium, machine-washable yarn sourced for softness and strength</li>
+          <li>Hand-crocheted stitch by stitch — no shortcuts, no machines</li>
+          <li>Finished with quality hardware: clasps, chains, and linings</li>
+          <li>Available in custom colourways to match your style</li>
+        </ul>
+      </div>
+      <div class="process-images reveal">
+        <img src="images/img4.jpg" alt="Handmade green crochet fan bag — finished product" class="process-img-top">
+        <img src="images/img5.jpg" alt="Happy customer holding green crochet bag" class="process-img-bottom">
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE / TESTIMONIAL -->
+  <section class="feature">
+    <div class="feature-img reveal">
+      <img src="images/img5.jpg" alt="Customer carrying handmade green crochet fan bag">
+    </div>
+    <blockquote class="reveal">"It's not just a bag — it's a conversation starter. Everywhere I go, someone asks where I
+      got it."</blockquote>
+    <cite class="reveal">— A happy LC&C customer</cite>
+  </section>
+
+  <div class="stitch-divider">
+    <svg viewBox="0 0 1200 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0 14 Q 15 0, 30 14 T 60 14 T 90 14 T 120 14 T 150 14 T 180 14 T 210 14 T 240 14 T 270 14 T 300 14 T 330 14 T 360 14 T 390 14 T 420 14 T 450 14 T 480 14 T 510 14 T 540 14 T 570 14 T 600 14 T 630 14 T 660 14 T 690 14 T 720 14 T 750 14 T 780 14 T 810 14 T 840 14 T 870 14 T 900 14 T 930 14 T 960 14 T 990 14 T 1020 14 T 1050 14 T 1080 14 T 1110 14 T 1140 14 T 1170 14 T 1200 14"
+        stroke="#C9A876" stroke-width="2" fill="none" opacity="0.5" />
+    </svg>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="section-eyebrow">Get In Touch</div>
+    <h2>Let's make<br>something for you</h2>
+    <p>Whether it's a custom bag, a crochet bouquet for someone special, or a learning session of your own — we'd love
+      to bring it to life.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/0926609241?text=Hi!%20I'd%20like%20to%20chat%20about%20a%20custom%20crochet%20piece." target="_blank" rel="noopener" class="btn-primary wa-contact-btn" id="dynamic-whatsapp-btn">WhatsApp: 0926 609 241</a>
+      <a href="#collection" class="btn-secondary">Browse Collection</a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="#" class="logo">LC<span>&</span>C</a>
+    <p>Liz Crochets & Crafts — Hoop Loop Magic. Handmade with patience, one stitch at a time.</p>
+    <div style="margin-top: 1.5rem;">
+      <a href="/login.html" style="color: rgba(250, 246, 240, 0.5); font-size: 0.8rem; text-decoration: none; border-bottom: 1px solid rgba(250,246,240,0.2); padding-bottom: 2px;">Admin Dashboard</a>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll animation reveals
+    function initScrollReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(el => observer.observe(el));
+    }
+
+    // Dynamic loading from local Express server APIs
+    async function loadDynamicContent() {
+      try {
+        // 1. Load general page settings and contact information
+        const configRes = await fetch('/api/config');
+        if (configRes.ok) {
+          const config = await configRes.json();
+          
+          if (config.heroEyebrow) {
+            document.getElementById('dynamic-hero-eyebrow').innerText = config.heroEyebrow;
+          }
+          if (config.heroTitlePrefix) {
+            document.getElementById('dynamic-hero-title').innerHTML = 
+              `${config.heroTitlePrefix}<br><em>${config.heroTitleItalic || ''}</em>${config.heroTitleSuffix || ''}`;
+          }
+          if (config.heroDescription) {
+            document.getElementById('dynamic-hero-description').innerText = config.heroDescription;
+          }
+          if (config.whatsappNumber && config.whatsappLink) {
+            const mainWaBtn = document.getElementById('dynamic-whatsapp-btn');
+            if (mainWaBtn) mainWaBtn.innerText = `WhatsApp: ${config.whatsappNumber}`;
+            
+            document.querySelectorAll('.wa-contact-btn').forEach(btn => {
+              let textParam = '';
+              try {
+                const url = new URL(btn.href);
+                if (url.searchParams.has('text')) {
+                  textParam = '?text=' + encodeURIComponent(url.searchParams.get('text'));
+                }
+              } catch(e) {}
+              
+              let baseLink = config.whatsappLink;
+              if (baseLink.includes('?')) baseLink = baseLink.split('?')[0];
+              btn.href = baseLink + textParam;
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Error loading config settings:', err);
+      }
+
+      try {
+        // 2. Load products database and render e-commerce product cards
+        const productsRes = await fetch('/api/products');
+        if (productsRes.ok) {
+          const products = await productsRes.json();
+          const gallery = document.getElementById('dynamic-gallery');
+          const filtersContainer = document.getElementById('shop-filters');
+
+          // Get WhatsApp link from config for order buttons
+          let waLink = 'https://wa.me/0926609241';
+          try {
+            const cfgRes = await fetch('/api/config');
+            if (cfgRes.ok) {
+              const cfg = await cfgRes.json();
+              if (cfg.whatsappLink) waLink = cfg.whatsappLink;
+            }
+          } catch(e) {}
+
+          if (products.length > 0) {
+            // Build unique category filter tabs
+            const tags = ['all', ...new Set(products.map(p => p.tag))];
+            filtersContainer.innerHTML = tags.map((tag, i) =>
+              `<button class="filter-btn ${i === 0 ? 'active' : ''}" data-filter="${tag === 'all' ? 'all' : tag}" onclick="filterProducts('${tag === 'all' ? 'all' : tag}', this)">${tag === 'all' ? 'All Pieces' : tag}</button>`
+            ).join('');
+
+            // Format price with comma separator
+            function fmtPrice(p) {
+              if (!p || p === '0') return 'Contact for Price';
+              return 'SSP ' + parseInt(p).toLocaleString();
+            }
+
+            // Build product cards
+            gallery.innerHTML = products.map(product => `
+              <div class="product-card" data-tag="${product.tag}">
+                <div class="product-card-img">
+                  <img src="${product.imgSrc}" alt="${product.alt || product.title || ''}">
+                  <div class="product-badge">${product.tag}</div>
+                </div>
+                <div class="product-card-body">
+                  <div class="product-card-title">${product.title || product.alt || 'Handmade Piece'}</div>
+                  <div class="product-card-price">
+                    ${fmtPrice(product.price)}
+                    ${product.price && product.price !== '0' ? '<span>South Sudanese Pound</span>' : ''}
+                  </div>
+                  <a class="product-order-btn"
+                     href="${waLink}?text=${encodeURIComponent('Hi! I\'m interested in ordering: ' + (product.title || product.tag) + (product.price && product.price !== '0' ? ' — Price: SSP ' + parseInt(product.price).toLocaleString() : '') + '. Please let me know availability.')}"
+                     target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    Order on WhatsApp
+                  </a>
+                </div>
+              </div>
+            `).join('');
+
+          } else {
+            gallery.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: rgba(43, 40, 38, 0.5); padding: 4rem 0;">Our craft closet is currently being restocked. Check back soon!</p>`;
+          }
+        }
+      } catch (err) {
+        console.error('Error loading products list:', err);
+      }
+
+      // Initialize the animations once the elements are inserted into the DOM
+      initScrollReveal();
+    }
+
+    // Category filter function
+    function filterProducts(tag, btn) {
+      // Update active button
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Show/hide product cards
+      document.querySelectorAll('.product-card').forEach(card => {
+        if (tag === 'all' || card.dataset.tag === tag) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Load content on page load
+    window.addEventListener('DOMContentLoaded', loadDynamicContent);
+
+    // --- ADMIN LOGIN BUTTON ---
+    // Check if admin is already logged in and update button accordingly
+    async function checkAdminStatus() {
+      try {
+        const res = await fetch('/api/status');
+        const data = await res.json();
+        const btn = document.getElementById('admin-login-btn');
+        if (data.loggedIn && btn) {
+          btn.style.display = 'inline-flex';
+          btn.innerHTML = `
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:13px;height:13px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            Dashboard`;
+          btn.href = '/admin';
+        }
+      } catch (e) { /* server might be down, silently fail */ }
+    }
+
+    function handleAdminClick(e) {
+      // Will navigate to the href set by checkAdminStatus (/admin or /login.html)
+      // No need to prevent default — just let it navigate
+    }
+
+    window.addEventListener('DOMContentLoaded', checkAdminStatus);
+  </script>
+
+</body>
+
+</html>

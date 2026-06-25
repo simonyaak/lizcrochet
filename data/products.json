@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "Granny Square Crochet Dress",
+    "imgSrc": "images/img1.jpg",
+    "alt": "Model sitting in handmade granny square crochet dress with colourful yarn balls",
+    "tag": "Wearable Art",
+    "gridClass": "g1",
+    "price": "8500"
+  },
+  {
+    "id": 2,
+    "title": "Green Fan Bag",
+    "imgSrc": "images/img4.jpg",
+    "alt": "Handmade green crochet fan bag with wooden ring handle on table",
+    "tag": "Statement Totes",
+    "gridClass": "g2",
+    "price": "45000"
+  },
+  {
+    "id": 3,
+    "title": "Green Fan Bag — Styled",
+    "imgSrc": "images/img5.jpg",
+    "alt": "Happy customer holding green handmade crochet fan bag",
+    "tag": "Statement Totes",
+    "gridClass": "g3",
+    "price": "45000"
+  },
+  {
+    "id": 4,
+    "title": "Artisan Crochet Dress",
+    "imgSrc": "images/img3.jpg",
+    "alt": "LC&C artisan model smiling holding colourful yarn balls in crochet dress",
+    "tag": "Signature Collection",
+    "gridClass": "g4",
+    "price": "95000"
+  },
+  {
+    "id": 5,
+    "title": "bag",
+    "imgSrc": "images/whatsapp_image_2026_06_16_at_19_46_30_1781737652198.jpeg",
+    "alt": "bag",
+    "tag": "Signature Bag Collection",
+    "gridClass": "g1",
+    "price": "667890"
+  },
+  {
+    "id": 6,
+    "title": "SHOOES",
+    "imgSrc": "images/whatsapp_image_2026_06_16_at_19_46_44__1__1781986681226.jpeg",
+    "alt": "WHITE SHOE",
+    "tag": "Statement Totes",
+    "gridClass": "g1",
+    "price": "10000"
+  }
+]
